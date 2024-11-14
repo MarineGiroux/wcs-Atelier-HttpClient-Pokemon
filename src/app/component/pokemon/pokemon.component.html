@@ -1,0 +1,38 @@
+<div class="pokemon-card-container">
+@for(pokemon of pokemons$ | async ; track $index){
+    <div class="pokemon-card">
+        <div class="card-header">
+          <h2 class="pokemon-name">{{pokemon.name}}</h2>
+          <span class="hp">HP {{pokemon.hp}}</span>
+        </div>
+        <img [src]="pokemon.images.large" [alt]="pokemon.name" class="pokemon-image">
+        <div class="card-body">
+          <p class="type">Type: {{pokemon.types.join(', ')}}</p>
+          <div class="attacks">
+            <h3>Attacks:</h3>
+            <ul>
+                @for(attack of pokemon.attacks; track $index){
+                    <li>
+                        <strong>{{attack.name}}</strong> - {{attack.damage}}
+                        <p>{{attack.text}}</p>
+                    </li>
+                }
+            </ul>
+          </div>
+          <div class="weakness-resistance">
+            @if(pokemon.weaknesses){
+                <p>Weakness: {{pokemon.weaknesses[0].type}} ({{pokemon.weaknesses[0].value}})</p>
+            }
+            @if(pokemon.resistances){
+                <p>Resistance: {{pokemon.resistances[0].type}} ({{pokemon.resistances[0].value}})</p>
+            }            
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>Artist: {{pokemon.artist}}</p>
+          <p>Set: {{pokemon.set.name}}</p>
+        </div>
+      </div>
+      
+}
+</div>
